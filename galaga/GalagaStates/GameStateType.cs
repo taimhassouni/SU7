@@ -1,4 +1,4 @@
-namespace galaga
+namespace galaga.GalaStates
 {
   public enum GameStateType {
     GameRunning,
@@ -12,7 +12,7 @@ namespace galaga
         return GameStateType.GameRunning;
       } else if (state == "GAME_PAUSED") {
         return GameStateType.GamePaused;
-      } else if (state == "GAME_MENU") {
+      } else if (state == "MAIN_MENU") {
         return GameStateType.MainMenu;
       }
     }
@@ -23,7 +23,7 @@ namespace galaga
       } else if (state == GameStateType.GamePaused) {
         return "GAME_PAUSED";
       } else if (state == GameStateType.MainMenu) {
-        return "GAME_MENU";
+        return "MAIN_MENU";
       }
     }
   }
