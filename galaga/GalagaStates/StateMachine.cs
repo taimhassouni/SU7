@@ -32,7 +32,7 @@ namespace galaga.GalagaStates {
     }
 
     public void GameLoop() {
-
+      
     }
   }
 }
