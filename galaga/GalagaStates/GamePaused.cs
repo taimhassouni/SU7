@@ -3,16 +3,16 @@ using DIKUArcade.Graphics;
 using DIKUArcade.Entities;
 
 namespace galaga.GalagaStates {
-  public class MainMenu : IGameState {
-    private static MainMenu instance = null;
+  public class GamePaused : IGameState {
+    private static GamePaused instance = null;
 
     private Entity backGroundImage;
     private Text[] menuButtons;
     private int activeMenuButton;
     private int maxMenuButtons;
 
-    public static MainMenu GetInstance() {
-      return MainMenu.instance ?? (MainMenu.instance = new MainMenu());
+    public static GamePaused GetInstance() {
+      return GamePaused.instance ?? (GamePaused.instance = new GamePaused());
     }
 
     public void InitializeGameState() {
@@ -37,14 +37,6 @@ namespace galaga.GalagaStates {
     }
 
     public void HandleKeyEvent(string keyValue, string keyAction) {
-      if (keyAction == "KEY_PRESS") {
-        if (keyValue == "KEY_UP") {
-          activeMenuButton = 1;
-        }
-        if (keyValue == "KEY_UP") {
-          activeMenuButton = 0;
-        }
-      }
       if (keyAction == "KEY_RELEASE") {
         if (keyValue == "KEY_ENTER") {
           if (activeMenuButton == 0) {
@@ -53,8 +45,7 @@ namespace galaga.GalagaStates {
               this,
               "CHANGE_STATE",
               "GAME_RUNNING", "");
-          }
-          if (keyValue == "KEY_ESCAPE") {
+          } else {
             GameEventFactory<object>.CreateGameEventForAllProcessors(
               GameEventType.GameStateEvent,
               this,
@@ -66,31 +57,7 @@ namespace galaga.GalagaStates {
     }
 
     public void GameLoop() {
-      while(win.IsRunning())
-      {
-          gameTimer.MeasureTime();
-          while (gameTimer.ShouldUpdate())
-          {
-              win.PollEvents();
-              // Update game logic here
-              player.Move();
-              eventBus.ProcessEvents();
-              stateMachine.ActiveState.RenderState();
-              win.SwapBuffers();
-          }
 
-          if (gameTimer.ShouldRender())
-          {
-              win.Clear();
-              // Render gameplay entities here
-
-          }
-          if (gameTimer.ShouldReset())
-          {
-              // 1 second has passed - display last captured ups and fps
-              win.Title = "Galaga | UPS: " + gameTimer.CapturedUpdates + ", FPS: " + gameTimer.CapturedFrames;
-          }
-      }
     }
 
     public void UpdateGameLogic() {
