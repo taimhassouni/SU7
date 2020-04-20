@@ -1,5 +1,4 @@
-namespace galaga.GalaStates
-{
+namespace galaga.GalagaStates {
   public enum GameStateType {
     GameRunning,
     GamePaused,
@@ -8,23 +7,19 @@ namespace galaga.GalaStates
 
   public class StateTransformer {
     public static GameStateType TransformStringToState(string state) {
-      if (state == "GAME_RUNNING") {
-        return GameStateType.GameRunning;
-      } else if (state == "GAME_PAUSED") {
-        return GameStateType.GamePaused;
-      } else if (state == "MAIN_MENU") {
-        return GameStateType.MainMenu;
-      }
+      return state switch {
+        "GAME_RUNNING" => GameStateType.GameRunning,
+        "GAME_PAUSED" => GameStateType.GamePaused,
+        "MAIN_MENU" => GameStateType.MainMenu
+      };
     }
 
     public static string TransformStateToString(GameStateType state) {
-      if (state == GameStateType.GameRunning) {
-        return "GAME_RUNNING";
-      } else if (state == GameStateType.GamePaused) {
-        return "GAME_PAUSED";
-      } else if (state == GameStateType.MainMenu) {
-        return "MAIN_MENU";
-      }
+      return state switch {
+        GameStateType.GameRunning => "GAME_RUNNING",
+        GameStateType.GamePaused => "GAME_PAUSED",
+        GameStateType.MainMenu  => "MAIN_MENU"
+      };
     }
   }
 }

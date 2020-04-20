@@ -11,9 +11,10 @@ namespace galagaTests {
       // (2) Instantiate the StateMachine
       // (3) Subscribe the GalagaBus to proper GameEventTypes
       // and GameEventProcessors
-      .
-      .
-      .
+
+      GameEventBus<object> GalagaBus = GalagaBus.eventBus();
+      StateMachine stateMachine = new StateMachine();
+
     }
 
     [Test]
