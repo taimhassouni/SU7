@@ -1,6 +1,8 @@
+using DIKUArcade.Math;
 using DIKUArcade.State;
 using DIKUArcade.Graphics;
 using DIKUArcade.Entities;
+using DIKUArcade.EventBus;
 
 namespace galaga.GalagaStates {
   public class GamePaused : IGameState {
@@ -20,18 +22,18 @@ namespace galaga.GalagaStates {
     }
 
     public void RenderState() {
-      Image image = new Graphics.Image("TitleImage.png");
-      Shape shape = new Entities.Shape();
+      Image image = new Image("TitleImage.png");
+      Shape shape = new Shape();
       backGroundImage = new Entity(shape, image);
       backGroundImage.RenderEntity();
 
-      Text new_game = new Graphics.Text("New Game",
-                                        new Vec2F(0.25f, 0.5f),
-                                        new Vec2F(0.5f, 0.25f));
-      Text quit = new Graphics.Text("Quit",
-                                    new Vec2F(0.25f, 0.5f),
-                                    new Vec2F(0.5f, 0.25f));
-      menuButtons = {new_game, quit};
+      Text new_game = new Text("New Game",
+                               new Vec2F(0.25f, 0.5f),
+                               new Vec2F(0.5f, 0.25f));
+      Text quit = new Text("Quit",
+                           new Vec2F(0.25f, 0.5f),
+                           new Vec2F(0.5f, 0.25f));
+      menuButtons = new Text[]{new_game, quit};
       activeMenuButton = 0;
       menuButtons[activeMenuButton].RenderText();
     }

@@ -15,20 +15,24 @@ namespace galaga.GalagaStates {
     private void SwitchState(GalagaStates.GameStateType stateType) {
       switch (stateType) {
         case GameStateType.GameRunning:
-          ActiveState = IGameState.GameLoop();
+          ActiveState = GameRunning.GetInstance();
           break;
-        // case GameStateType.GamePaused:
-        //   ActiveState = GamePaused.GetInstance();
-        //   break;
-        // case GameStateType.MainMenu:
-        //   ActiveState = IGameState.;
-        //   break;
+        case GameStateType.GamePaused:
+          ActiveState = GamePaused.GetInstance();
+          break;
+        case GameStateType.MainMenu:
+          ActiveState = MainMenu.GetInstance();
+          break;
       }
     }
 
     public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
       System.Console.WriteLine(eventType);
       System.Console.WriteLine(gameEvent);
+    }
+
+    public void GameLoop() {
+
     }
   }
 }

@@ -1,10 +1,20 @@
-using DIKUArcade.State;
-using DIKUArcade.Graphics;
+using System.IO;
+using System;
+using DIKUArcade;
 using DIKUArcade.Entities;
+using DIKUArcade.EventBus;
+using DIKUArcade.Graphics;
+using DIKUArcade.Input;
+using DIKUArcade.Math;
+using DIKUArcade.Physics;
+using DIKUArcade.State;
+using DIKUArcade.Timers;
+using DIKUArcade.Utilities;
+using System.Collections.Generic;
 
 namespace galaga.GalagaStates {
   public class GameRunning : IGameState {
-    private static MainMenu instance = null;
+    private static GameRunning instance = null;
 
     public List<Image> enemyStrides;
     private List<Image> explosionStrides;
@@ -17,34 +27,22 @@ namespace galaga.GalagaStates {
     private Player player;
     private DIKUArcade.Timers.GameTimer gameTimer;
     private Score score;
+    private Game game;
+    private StateMachine stateMachine = new StateMachine();
 
     public static GameRunning GetInstance() {
       return GameRunning.instance ?? (GameRunning.instance = new GameRunning());
     }
 
     public void InitializeGameState() {
+      game = new Game();
       win = new Window("Galaga", 500, 500);
       gameTimer = new GameTimer(60, 60);
-      player = new Player(
-          new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
-          new Image(Path.Combine("Assets", "Images", "Player.png")),this);
-
-
-      eventBus = new GameEventBus<object>(); //3.3
-      eventBus.InitializeEventBus(new List<GameEventType>() {
-          GameEventType.InputEvent, // key press / key release
-          GameEventType.WindowEvent, // messages to the window
-          GameEventType.PlayerEvent,
-          });
-      win.RegisterEventBus(eventBus);
-      eventBus.Subscribe(GameEventType.InputEvent, this);
-      eventBus.Subscribe(GameEventType.WindowEvent, this);
-      eventBus.Subscribe(GameEventType.PlayerEvent, this.player);
 
       // Creating enemies
       enemyStrides = ImageStride.CreateStrides(4,
       Path.Combine("Assets", "Images", "BlueMonster.png"));
-      enemies = AddEnemies();
+      enemies = game.AddEnemies();
 
       // Shots
       playerShots = new List<PlayerShot>();
@@ -68,7 +66,7 @@ namespace galaga.GalagaStates {
       {
           shot.RenderEntity();
       }
-      IterateShots();
+      game.IterateShots();
       explosions.RenderAnimations();
       score.RenderScore();
     }

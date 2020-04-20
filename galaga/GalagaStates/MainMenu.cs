@@ -1,6 +1,9 @@
+using DIKUArcade.Math;
 using DIKUArcade.State;
 using DIKUArcade.Graphics;
 using DIKUArcade.Entities;
+using DIKUArcade.EventBus;
+
 
 namespace galaga.GalagaStates {
   public class MainMenu : IGameState {
@@ -20,18 +23,18 @@ namespace galaga.GalagaStates {
     }
 
     public void RenderState() {
-      Image image = new Graphics.Image("TitleImage.png");
-      Shape shape = new Entities.Shape();
+      Image image = new Image("TitleImage.png");
+      Shape shape = new Shape();
       backGroundImage = new Entity(shape, image);
       backGroundImage.RenderEntity();
 
-      Text new_game = new Graphics.Text("New Game",
+      Text new_game = new Text("New Game",
                                         new Vec2F(0.25f, 0.5f),
                                         new Vec2F(0.5f, 0.25f));
-      Text quit = new Graphics.Text("Quit",
+      Text quit = new Text("Quit",
                                     new Vec2F(0.25f, 0.5f),
                                     new Vec2F(0.5f, 0.25f));
-      menuButtons = {new_game, quit};
+      menuButtons = new Text[]{new_game, quit};
       activeMenuButton = 0;
       menuButtons[activeMenuButton].RenderText();
     }
@@ -66,31 +69,7 @@ namespace galaga.GalagaStates {
     }
 
     public void GameLoop() {
-      while(win.IsRunning())
-      {
-          gameTimer.MeasureTime();
-          while (gameTimer.ShouldUpdate())
-          {
-              win.PollEvents();
-              // Update game logic here
-              player.Move();
-              eventBus.ProcessEvents();
-              stateMachine.ActiveState.RenderState();
-              win.SwapBuffers();
-          }
-
-          if (gameTimer.ShouldRender())
-          {
-              win.Clear();
-              // Render gameplay entities here
-
-          }
-          if (gameTimer.ShouldReset())
-          {
-              // 1 second has passed - display last captured ups and fps
-              win.Title = "Galaga | UPS: " + gameTimer.CapturedUpdates + ", FPS: " + gameTimer.CapturedFrames;
-          }
-      }
+      
     }
 
     public void UpdateGameLogic() {
