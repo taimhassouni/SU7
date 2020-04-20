@@ -14,7 +14,7 @@ namespace galagaTests {
 
       GameEventBus<object> GalagaBus = GalagaBus.eventBus();
       StateMachine stateMachine = new StateMachine();
-
+      GalagaBus.GetBus().Subscribe(GameEventType.GameStateEvent, stateMachine);
     }
 
     [Test]
