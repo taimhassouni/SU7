@@ -1,4 +1,0 @@
-/home/neeb/Documents/Life/School/SU/SU7/galaga/obj/Debug/netcoreapp3.1/galaga.csprojAssemblyReference.cache
-/home/neeb/Documents/Life/School/SU/SU7/galaga/obj/Debug/netcoreapp3.1/galaga.csproj.CoreCompileInputs.cache
-/home/neeb/Documents/Life/School/SU/SU7/galaga/obj/Debug/netcoreapp3.1/galaga.AssemblyInfoInputs.cache
-/home/neeb/Documents/Life/School/SU/SU7/galaga/obj/Debug/netcoreapp3.1/galaga.AssemblyInfo.cs
