@@ -25,6 +25,8 @@ namespace galaga.GalagaStates {
       }
     }
 
-
+    public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
+      
+    }
   }
 }
